@@ -6,4 +6,12 @@ const getProducts = async (req, res) => {
   res.render('index', { link: 'products' });
 }
 
-export default { getIndex, getProducts };
+const getStocks = async (req, res) => {
+  res.render('index', { link: 'stocks' });
+}
+
+const getCategories = async (req, res) => {
+  res.render('index', { link: 'categories' });
+}
+
+export default { getIndex, getProducts, getStocks, getCategories };
