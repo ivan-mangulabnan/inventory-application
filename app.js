@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import indexRoute from './routes/index.js';
+import productsRoute from './routes/products.js';
 
 const app = express();
 dotenv.config();
@@ -15,6 +16,7 @@ app.set('view engine', 'ejs');
 
 app.use(express.static(assetsPath));
 app.use('/', indexRoute);
+app.use('/products', productsRoute);
 
 app.listen(process.env.LOCAL_PORT, (err) => {
   if (err) {
