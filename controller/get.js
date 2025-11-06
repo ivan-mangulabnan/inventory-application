@@ -1,17 +1,21 @@
 const getIndex = async (req, res) => {
-  res.render('index', { link: 'dashboard' });
+  const navigations = req.app.get('navigations');
+  res.render('index', { link: 'dashboard', navigations });
 }
 
 const getProducts = async (req, res) => {
-  res.render('index', { link: 'products' });
+  const navigations = req.app.get('navigations');
+  res.render('index', { link: 'products', navigations });
 }
 
 const getStocks = async (req, res) => {
-  res.render('index', { link: 'stocks' });
+  const navigations = req.app.get('navigations');
+  res.render('index', { link: 'stocks', navigations });
 }
 
 const getCategories = async (req, res) => {
-  res.render('index', { link: 'categories' });
+  const navigations = req.app.get('navigations');
+  res.render('index', { link: 'categories', navigations });
 }
 
 export default { getIndex, getProducts, getStocks, getCategories };

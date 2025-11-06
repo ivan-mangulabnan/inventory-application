@@ -1,0 +1,9 @@
+<nav>
+  <ul>
+    <% navigations.forEach(nav => { %>
+      <li>
+        <a href="/<%= nav.href %>"><%= nav.link %></a>
+      </li>
+    <% }) %>
+  </ul>
+</nav>

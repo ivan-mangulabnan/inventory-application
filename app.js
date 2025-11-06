@@ -13,8 +13,15 @@ dotenv.config();
 const __filepath = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filepath);
 const assetsPath = path.join(__dirname, 'public');
+const navigations = [
+  { link: 'Dashboard', href: '' },
+  { link: 'Products', href: 'products' },
+  { link: 'Stocks', href: 'stocks' },
+  { link: 'Categories', href: 'categories' }
+];
 
 app.set('view engine', 'ejs');
+app.set('navigations', navigations);
 
 app.use(express.static(assetsPath));
 app.use('/', indexRoute);
