@@ -5,10 +5,11 @@ import path from 'path';
 import indexRoute from './routes/index.js';
 
 const app = express();
+dotenv.config();
+
 const __filepath = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filepath);
 const assetsPath = path.join(__dirname, 'public');
-dotenv.config();
 
 app.set('view engine', 'ejs');
 

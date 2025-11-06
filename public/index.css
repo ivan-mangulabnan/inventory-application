@@ -13,3 +13,7 @@ body {
   display: grid;
   grid-template-columns: auto 1fr;
 }
+
+main {
+  display: flex;
+}
