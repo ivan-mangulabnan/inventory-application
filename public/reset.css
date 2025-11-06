@@ -1,0 +1,94 @@
+/* ===== normalize + sensible base =====
+   Keeps useful browser behavior, fixes annoying differences,
+   and applies a few safe defaults (box-sizing, media, forms).
+   Drop this near the top of your main CSS.
+*/
+
+/* Box sizing — makes layouts predictable */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Root sensible variables (optional) */
+:root {
+  --focus-ring: 3px;
+  --focus-color: #2563eb; /* blue-600 */
+  --body-font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  --body-color: #111;
+  --body-bg: #fff;
+}
+
+/* Document defaults */
+html {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--body-font);
+  color: var(--body-color);
+  background: var(--body-bg);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* Images and media */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Headings keep browser sizes but are easy to override */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* Paragraphs and text flow */
+p {
+  margin: 0 0 1em 0;
+}
+
+/* Links with accessible focus */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:focus {
+  outline: var(--focus-ring) solid var(--focus-color);
+  outline-offset: 2px;
+}
+
+/* Forms */
+button, [type="button"], [type="reset"], [type="submit"] {
+  -webkit-appearance: button;
+  appearance: button;
+  font: inherit;
+}
+
+input, textarea, select {
+  font: inherit;
+  margin: 0;
+}
+
+/* Remove list styles where undesired but keep semantics */
+ul[role="list"], ol[role="list"], ul.list-reset, ol.list-reset {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
