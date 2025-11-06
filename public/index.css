@@ -2,10 +2,14 @@
 
 body {
   min-height: 100vh;
-  display: grid;
-  grid-auto-rows: auto 1fr auto;
+  display: flex;
 }
 
-footer {
-  align-self: end;
+#root {
+  flex: 1;
+  max-width: 1600px;
+  margin: 0 auto;
+  
+  display: grid;
+  grid-template-columns: auto 1fr;
 }
