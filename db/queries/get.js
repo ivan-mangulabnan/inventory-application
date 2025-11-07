@@ -15,4 +15,9 @@ async function getTotalCategories () {
   return rowCount;
 }
 
-export default { getTotalProducts, getTotalStocks, getTotalCategories };
+async function getProductsWithCategory () {
+  const { rows } = await pool.query('SELECT p.*, c.name AS category FROM products AS p INNER JOIN categories AS c ON p.category_id = c.id');
+  return rows;
+}
+
+export default { getTotalProducts, getTotalStocks, getTotalCategories, getProductsWithCategory };

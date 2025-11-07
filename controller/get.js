@@ -21,7 +21,15 @@ const getIndex = async (req, res) => {
 
 const getProducts = async (req, res) => {
   const navigations = req.app.get('navigations');
-  res.render('index', { link: 'products', navigations, data: null });
+  let data;
+
+  try {
+    data = await dbGet.getProductsWithCategory();
+  } catch (err) {
+    console.log(err);
+  }
+
+  res.render('index', { link: 'products', navigations, data });
 }
 
 const getStocks = async (req, res) => {

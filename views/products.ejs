@@ -1,3 +1,15 @@
 <div class="products">
-  <h2>Hi, you're on products</h2>
+  <% if (data.length <= 0) { %>
+      <h2>No Products Yet</h2>
+  <% } else { %>
+      <ul>
+    <% data.forEach(product => { %>
+        <li>
+          <a href="/products/<%= product.id %>"><%= product.name %></a>
+          <p><%= product.price %></p>
+          <p><%= product.category %></p>
+        </li>
+    <% }) %>
+    </ul>
+  <% } %>
 </div>
