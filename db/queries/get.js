@@ -20,4 +20,15 @@ async function getProductsWithCategory () {
   return rows;
 }
 
-export default { getTotalProducts, getTotalStocks, getTotalCategories, getProductsWithCategory };
+async function getStocksWithProductName () {
+  const { rows } = await pool.query('SELECT s.quantity, p.name FROM stocks AS s JOIN products AS p ON s.product_id = p.id');
+  return rows;
+}
+
+export default { 
+  getTotalProducts, 
+  getTotalStocks, 
+  getTotalCategories, 
+  getProductsWithCategory,
+  getStocksWithProductName 
+};

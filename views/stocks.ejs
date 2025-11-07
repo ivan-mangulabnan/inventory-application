@@ -1,3 +1,14 @@
 <div class="stocks">
-  <h2>Hi, you're on stocks</h2>
+  <% if (data.length <= 0) { %>
+      <h2>No Stocks Yet</h2>
+  <% } else { %>
+      <ul>
+    <% data.forEach(stock => { %>
+        <li>
+          <p><%= stock.name %></p>
+          <p><%= stock.quantity %></p>
+        </li>
+    <% }) %>
+    </ul>
+  <% } %>
 </div>
