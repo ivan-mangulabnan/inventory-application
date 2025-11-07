@@ -1,3 +1,13 @@
 <div class="categories">
-  <h2>Hi, you're on categories</h2>
+  <% if (data.length <= 0) { %>
+      <h2>No Categories Yet</h2>
+  <% } else { %>
+      <ul>
+    <% data.forEach(category => { %>
+        <li>
+          <p><%= category.name %></p>
+        </li>
+    <% }) %>
+    </ul>
+  <% } %>
 </div>

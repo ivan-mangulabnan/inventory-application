@@ -25,10 +25,16 @@ async function getStocksWithProductName () {
   return rows;
 }
 
+async function getCategories () {
+  const { rows } = await pool.query('SELECT * FROM categories');
+  return rows;
+}
+
 export default { 
   getTotalProducts, 
   getTotalStocks, 
   getTotalCategories, 
   getProductsWithCategory,
-  getStocksWithProductName 
+  getStocksWithProductName,
+  getCategories
 };

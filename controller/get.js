@@ -47,7 +47,15 @@ const getStocks = async (req, res) => {
 
 const getCategories = async (req, res) => {
   const navigations = req.app.get('navigations');
-  res.render('index', { link: 'categories', navigations, data: null });
+  let data;
+
+  try {
+    data = await dbGet.getCategories();
+  } catch (err) {
+    console.log(err);
+  }
+
+  res.render('index', { link: 'categories', navigations, data });
 }
 
 export default { getIndex, getProducts, getStocks, getCategories };
