@@ -1,0 +1,21 @@
+<form action="/products/add" method="post">
+  <label for="name">
+    Product Name:
+    <input type="text" name="name" id="name" required>
+  </label>
+  <label for="price">
+    Price:
+    <input type="number" name="price" id="price" min="1" required>
+  </label>
+  <label for="quantity">
+    Stock:
+    <input type="number" name="quantity" id="quantity" min="0" required>
+  </label>
+  <label for="category"></label>
+  <select name="category" id="category" required>
+    <% data.forEach(category => { %>
+      <option value="<%= category.id %>"><%= category.name %></option>
+    <% }) %>
+  </select>
+  <button type="submit">ADD</button>
+</form>

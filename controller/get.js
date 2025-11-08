@@ -58,4 +58,23 @@ const getCategories = async (req, res) => {
   res.render('index', { link: 'categories', navigations, data });
 }
 
-export default { getIndex, getProducts, getStocks, getCategories };
+const getProductsForm = async (req, res) => {
+  const navigations = req.app.get('navigations');
+  let data;
+
+  try {
+    data = await dbGet.getCategories();
+  } catch (err) {
+    console.log(err);
+  }
+  
+  res.render('index', { link: 'add-product', navigations, data });
+}
+
+export default { 
+  getIndex, 
+  getProducts, 
+  getStocks, 
+  getCategories,
+  getProductsForm
+ };

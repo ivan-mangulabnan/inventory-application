@@ -16,7 +16,7 @@ const navigations = [
   { link: 'Dashboard', href: '' },
   { link: 'Products', href: 'products' },
   { link: 'Stocks', href: 'stocks' },
-  { link: 'Categories', href: 'categories' }
+  { link: 'Categories', href: 'categories' },
 ];
 
 app.set('view engine', 'ejs');
