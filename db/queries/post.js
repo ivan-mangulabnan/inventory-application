@@ -17,4 +17,8 @@ async function postProduct (name, price, categoryID, quantity) {
   }
 }
 
-export default { postProduct };
+async function postCategory (category) {
+  await pool.query('INSERT INTO categories (name) VALUES ($1)', [category]);
+}
+
+export default { postProduct, postCategory };

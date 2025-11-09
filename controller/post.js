@@ -18,4 +18,22 @@ async function postProduct (req, res) {
   res.redirect('/products');
 }
 
-export default { postProduct };
+async function postCategories (req, res) {
+  const error = validationResult(req);
+
+  if (!error.isEmpty()) {
+    return res.status(400).send('invalid category value');
+  }
+
+  const { category } = matchedData(req);
+  
+  try {
+    await dbPost.postCategory(category);
+  } catch (err) {
+    throw new Error (err);
+  }
+
+  res.redirect('/categories');
+}
+
+export default { postProduct, postCategories };

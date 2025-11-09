@@ -85,11 +85,17 @@ const getStockForm = async (req, res) => {
   res.render('index', { link: 'edit-stocks', navigations, data });
 }
 
+const getCategoriesForm = async (req, res) => {
+  const navigations = req.app.get('navigations');
+  res.render('index', { link: 'add-categories', navigations, data: null });
+}
+
 export default { 
   getIndex, 
   getProducts, 
   getStocks, 
   getCategories,
   getProductsForm,
-  getStockForm
+  getStockForm,
+  getCategoriesForm
 };
