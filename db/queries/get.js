@@ -21,7 +21,7 @@ async function getProductsWithCategory () {
 }
 
 async function getStocksWithProductName () {
-  const { rows } = await pool.query('SELECT s.quantity, p.name FROM stocks AS s JOIN products AS p ON s.product_id = p.id');
+  const { rows } = await pool.query('SELECT s.*, p.name FROM stocks AS s JOIN products AS p ON s.product_id = p.id');
   return rows;
 }
 
@@ -30,11 +30,17 @@ async function getCategories () {
   return rows;
 }
 
+async function getSpecificStock (id) {
+  const { rows } = await pool.query('SELECT s.*, p.name FROM stocks AS s JOIN products AS p ON s.product_id = p.id WHERE s.product_id = $1', [id]);
+  return rows[0];
+}
+
 export default { 
   getTotalProducts, 
   getTotalStocks, 
   getTotalCategories, 
   getProductsWithCategory,
   getStocksWithProductName,
-  getCategories
+  getCategories,
+  getSpecificStock
 };

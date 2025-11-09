@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 const app = express();
+import methodOverride from 'method-override';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import indexRoute from './routes/index.js';
@@ -24,6 +25,7 @@ app.set('navigations', navigations);
 
 app.use(express.static(assetsPath));
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
 app.use('/', indexRoute);
 app.use('/products', productsRoute);
 app.use('/stocks', stocksRoute);

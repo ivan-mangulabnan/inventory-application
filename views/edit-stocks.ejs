@@ -1,0 +1,8 @@
+<form action="/stocks/edit/<%=data.product_id%>?_method=PATCH" method="post">
+  <h2><%= data.name %></h2>
+  <label for="quantity">
+    Quantity:
+    <input type="number" name="quantity" id="quantity" value="<%= data.quantity %>" min="0" required>
+  </label>
+  <button type="submit">SUBMIT</button>
+</form>
