@@ -1,3 +1,4 @@
+import { matchedData, validationResult } from 'express-validator';
 import dbGet from '../db/queries/get.js';
 
 const getIndex = async (req, res) => {
@@ -90,6 +91,25 @@ const getCategoriesForm = async (req, res) => {
   res.render('index', { link: 'add-categories', navigations, data: null });
 }
 
+const getEditProducts = async (req, res) => {
+  const navigations = req.app.get('navigations');
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).send('Validation Error');
+  }
+
+  const { id } = matchedData(req, { locations: ['params'] });
+
+  let data;
+  try {
+    data = await dbGet.getSpecificProductWithCategory(id);
+  } catch (err) {
+    throw new Error(err);
+  }
+  
+  res.render('index', { link: 'edit-products', navigations, data });
+}
+
 export default { 
   getIndex, 
   getProducts, 
@@ -97,5 +117,6 @@ export default {
   getCategories,
   getProductsForm,
   getStockForm,
-  getCategoriesForm
+  getCategoriesForm,
+  getEditProducts
 };

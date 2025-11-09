@@ -1,0 +1,17 @@
+<form action="/edit/<%=data.product.id%>?_method=PATCH" method="post">
+  <label for="name">
+    Product Name:
+    <input type="text" name="name" id="name" value="<%=data.product.name%>" required>
+  </label>
+  <label for="price">
+    Price:
+    <input type="number" name="price" id="price" value="<%=data.product.price%>" required>
+  </label>
+  <label for="category">Category:</label>
+  <select name="category" id="category" required>
+    <% data.categories.forEach(category => { %>
+      <option value="<%=category.id%>" <%= data.product.category_id === category.id ? 'selected' : '' %>><%=category.name%></option>
+    <% }) %>
+  </select>
+  <button type="submit">SUBMIT</button>
+</form>

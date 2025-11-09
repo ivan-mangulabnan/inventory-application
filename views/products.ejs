@@ -5,9 +5,10 @@
       <ul>
     <% data.forEach(product => { %>
         <li>
-          <a href="/products/<%= product.id %>"><%= product.name %></a>
+          <h3><%= product.name %></h3>
           <p><%= product.price %></p>
           <p><%= product.category %></p>
+          <a href="/products/edit/<%=product.id%>">EDIT</a>
         </li>
     <% }) %>
     </ul>

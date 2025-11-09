@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import controller from '../controller/get.js';
 import postController from '../controller/post.js';
-import { body } from 'express-validator';
+import { body, param } from 'express-validator';
 
 const productsRoute = Router();
 
@@ -16,4 +16,8 @@ productsRoute.route('/add')
     body('quantity').isInt({ min: 0 }).withMessage('quantity should be equal or greater than 0')
   ], postController.postProduct)
 
+productsRoute.route('/edit/:id')
+  .get([
+    param('id').isInt({ gt: 0 }).withMessage('should be an integer').toInt()
+  ], controller.getEditProducts)
 export default productsRoute;

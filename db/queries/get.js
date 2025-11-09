@@ -35,6 +35,15 @@ async function getSpecificStock (id) {
   return rows[0];
 }
 
+async function getSpecificProductWithCategory (id) {
+  const [ productResult, categoriesResult ] = await Promise.all([
+    pool.query('SELECT p.*, c.name AS category, c.id AS category_id FROM products AS p INNER JOIN categories AS c ON p.category_id = c.id WHERE p.id = $1', [id]),
+    pool.query('SELECT * FROM categories')
+  ]);
+
+  return { product: productResult.rows[0], categories: categoriesResult.rows };
+}
+
 export default { 
   getTotalProducts, 
   getTotalStocks, 
@@ -42,5 +51,6 @@ export default {
   getProductsWithCategory,
   getStocksWithProductName,
   getCategories,
-  getSpecificStock
+  getSpecificStock,
+  getSpecificProductWithCategory
 };
