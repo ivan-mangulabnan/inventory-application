@@ -7,11 +7,7 @@
     Price:
     <input type="number" name="price" id="price" min="1" required>
   </label>
-  <label for="quantity">
-    Stock:
-    <input type="number" name="quantity" id="quantity" min="0" required>
-  </label>
-  <label for="category"></label>
+  <label for="category">Category</label>
   <select name="category" id="category" required>
     <% data.forEach(category => { %>
       <option value="<%= category.id %>"><%= category.name %></option>

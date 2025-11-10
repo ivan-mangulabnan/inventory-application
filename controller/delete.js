@@ -17,7 +17,7 @@ async function deleteProduct (req, res) {
     return;
   }
 
-  res.redirect('/categories');
+  res.redirect('/products');
 }
 
 export default { deleteProduct };

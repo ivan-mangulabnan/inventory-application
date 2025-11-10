@@ -14,8 +14,7 @@ productsRoute.route('/add')
   .post([
     body('name').trim().notEmpty().withMessage('name is required'),
     body('category').isInt({ min: 1 }).withMessage('category must be positive integer'),
-    body('price').isFloat({ gt: 0 }).withMessage('price should be greater than 0'),
-    body('quantity').isInt({ min: 0 }).withMessage('quantity should be equal or greater than 0')
+    body('price').isFloat({ gt: 0 }).withMessage('price should be greater than 0')
   ], postController.postProduct)
 
 productsRoute.route('/edit/:id')

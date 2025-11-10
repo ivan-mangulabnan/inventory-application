@@ -49,6 +49,16 @@ async function getSpecificCategory (id) {
   return rows[0];
 }
 
+async function getProductsNotInStock (search) {
+  if (search) {
+    const { rows } = await pool.query('SELECT p.* FROM products AS p LEFT JOIN stocks AS s ON p.id = s.product_id WHERE s.product_id IS NULL AND p.name ILIKE $1', [`${search}%`]);
+    return rows;
+  } 
+
+  const { rows } = await pool.query('SELECT p.* FROM products AS p LEFT JOIN stocks AS s ON p.id = s.product_id WHERE s.product_id IS NULL;');
+  return rows;
+}
+
 export default { 
   getTotalProducts, 
   getTotalStocks, 
@@ -58,5 +68,6 @@ export default {
   getCategories,
   getSpecificStock,
   getSpecificProductWithCategory,
-  getSpecificCategory
+  getSpecificCategory,
+  getProductsNotInStock
 };

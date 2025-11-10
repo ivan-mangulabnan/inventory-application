@@ -129,6 +129,25 @@ const getEditCategory = async (req, res) => {
   res.render('index', { link: 'edit-categories', navigations, data });
 }
 
+const getIncludeProductInStock = async (req, res) => {
+  const navigations = req.app.get('navigations');
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).send('Validation Error');
+  }
+
+  const { search } = matchedData(req, { locations: ['query'] });
+  
+  let data;
+  try {
+    data = await dbGet.getProductsNotInStock(search);
+  } catch (err) {
+    return res.status(500).send('DB Problem');
+  }
+  
+  res.render('index', { link: 'add-stocks', navigations, data });
+}
+
 export default { 
   getIndex, 
   getProducts, 
@@ -138,5 +157,6 @@ export default {
   getStockForm,
   getCategoriesForm,
   getEditProducts,
-  getEditCategory
+  getEditCategory,
+  getIncludeProductInStock
 };

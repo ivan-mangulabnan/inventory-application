@@ -10,7 +10,7 @@ async function postProduct (req, res) {
 
   const data = matchedData(req);
   try {
-    await dbPost.postProduct(data.name, data.price, data.category, data.quantity);
+    await dbPost.postProduct(data.name, data.price, data.category);
   } catch (err) {
     return res.status(500).send('Database Error');
   }
@@ -36,4 +36,22 @@ async function postCategories (req, res) {
   res.redirect('/categories');
 }
 
-export default { postProduct, postCategories };
+async function postStock (req, res) {
+  const error = validationResult(req);
+
+  if (!error.isEmpty()) {
+    return res.status(400).send('invalid category value');
+  }
+
+  const { id } = matchedData(req, { locations: ['params'] });
+
+  try {
+    await dbPost.postStock(id);
+  } catch (err) {
+    throw new Error (err);
+  }
+
+  res.redirect('/stocks');
+}
+
+export default { postProduct, postCategories, postStock };
