@@ -1,22 +1,41 @@
-<div class="products">
-  <% if (data.length <= 0) { %>
-      <h2>No Products Yet</h2>
-  <% } else { %>
-      <ul>
-    <% data.forEach(product => { %>
-        <li>
-          <h3><%= product.name %></h3>
-          <p><%= product.price %></p>
-          <p><%= product.category %></p>
-          <a href="/products/edit/<%=product.id%>">EDIT</a>
-          <form action="/products/delete/<%=product.id%>?_method=DELETE" method="post">
-            <button type="submit">DELETE</button>
-          </form>
-        </li>
-    <% }) %>
-    </ul>
-  <% } %>
-  <div>
-    <a href="/products/add">ADD PRODUCT</a>
+<section class="page">
+  <h2>Products</h2>
+  <div class="toolbar">
+    <%- include('search-form', { link: '/product/add', section: 'product' }) %>
+    <a class="btn btn-primary" href="/products/add">ADD PRODUCT</a>
   </div>
-</div>
+  <div class="table-container">
+    <% if (data.length <= 0) { %>
+      <h3>No Products Yet</h3>
+    <% } else { %>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% data.forEach(product => { %>
+            <tr>
+              <td><%= product.name %></td>
+              <td><%= product.price %></td>
+              <td><%= product.category %></td>
+              <td>
+                <a class="btn btn-secondary" href="/products/edit/<%=product.id%>">EDIT</a>
+              </td>
+              <td>
+                <form action="/products/delete/<%=product.id%>?_method=DELETE" method="post">
+                  <button class="btn btn-secondary" type="submit">DELETE</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </div>
+</section>
