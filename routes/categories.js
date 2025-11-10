@@ -1,6 +1,7 @@
 import { Router } from "express";
 import controller from '../controller/get.js';
 import postController from '../controller/post.js';
+import putController from '../controller/put.js';
 import { body, param } from "express-validator";
 
 const categoriesRoute = Router();
@@ -17,5 +18,9 @@ categoriesRoute.route('/edit/:id')
   .get([
     param('id').trim().isInt({ gt: 0 }).withMessage('should be an integer greater than 0').toInt()
   ], controller.getEditCategory)
+  .put([
+    param('id').trim().isInt({ gt: 0 }).withMessage('should be an integer greater than 0').toInt(),
+    body('name').trim().notEmpty()
+  ], putController.putEditedCategory)
 
 export default categoriesRoute;

@@ -18,4 +18,21 @@ async function putEditedProduct (req, res) {
   res.redirect('/products');
 }
 
-export default { putEditedProduct };
+async function putEditedCategory (req, res) {
+  const error = validationResult(req);
+  if (!error.isEmpty()) {
+    throw new Error(error.array().join(','));
+  }
+
+  const { id, name } = matchedData(req, { locations: ['body', 'params'] });
+
+  try {
+    await dbPut.putEditedCategory(id, name);
+  } catch (err) {
+    throw new Error(err);
+  }
+
+  res.redirect('/categories');
+}
+
+export default { putEditedProduct, putEditedCategory };
