@@ -44,6 +44,11 @@ async function getSpecificProductWithCategory (id) {
   return { product: productResult.rows[0], categories: categoriesResult.rows };
 }
 
+async function getSpecificCategory (id) {
+  const { rows } = await pool.query('SELECT * FROM categories WHERE id = $1', [id]);
+  return rows[0];
+}
+
 export default { 
   getTotalProducts, 
   getTotalStocks, 
@@ -52,5 +57,6 @@ export default {
   getStocksWithProductName,
   getCategories,
   getSpecificStock,
-  getSpecificProductWithCategory
+  getSpecificProductWithCategory,
+  getSpecificCategory
 };

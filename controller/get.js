@@ -110,6 +110,25 @@ const getEditProducts = async (req, res) => {
   res.render('index', { link: 'edit-products', navigations, data });
 }
 
+const getEditCategory = async (req, res) => {
+  const navigations = req.app.get('navigations');
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).send('Validation Error');
+  }
+
+  const { id } = matchedData(req, { locations: ['params'] });
+
+  let data;
+  try {
+    data = await dbGet.getSpecificCategory(id);
+  } catch (err) {
+    throw new Error(err);
+  }
+  
+  res.render('index', { link: 'edit-categories', navigations, data });
+}
+
 export default { 
   getIndex, 
   getProducts, 
@@ -118,5 +137,6 @@ export default {
   getProductsForm,
   getStockForm,
   getCategoriesForm,
-  getEditProducts
+  getEditProducts,
+  getEditCategory
 };
