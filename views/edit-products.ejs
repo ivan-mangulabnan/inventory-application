@@ -1,11 +1,11 @@
-<form action="/edit/<%=data.product.id%>?_method=PATCH" method="post">
+<form action="/products/edit/<%=data.product.id%>?_method=PUT" method="post">
   <label for="name">
     Product Name:
     <input type="text" name="name" id="name" value="<%=data.product.name%>" required>
   </label>
   <label for="price">
     Price:
-    <input type="number" name="price" id="price" value="<%=data.product.price%>" required>
+    <input type="number" name="price" id="price" value="<%=data.product.price%>" required min="1">
   </label>
   <label for="category">Category:</label>
   <select name="category" id="category" required>
