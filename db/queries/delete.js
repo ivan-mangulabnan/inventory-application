@@ -8,4 +8,8 @@ async function deleteStock (id) {
   await pool.query('DELETE FROM stocks WHERE product_id = $1', [id]);
 }
 
-export default { deleteProduct, deleteStock };
+async function deleteCategory (id) {
+  await pool.query('DELETE FROM categories WHERE id = $1', [id]);
+}
+
+export default { deleteProduct, deleteStock, deleteCategory };

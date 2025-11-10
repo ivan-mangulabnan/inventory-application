@@ -2,6 +2,7 @@ import { Router } from "express";
 import controller from '../controller/get.js';
 import postController from '../controller/post.js';
 import putController from '../controller/put.js';
+import deleteController from '../controller/delete.js';
 import { body, param } from "express-validator";
 
 const categoriesRoute = Router();
@@ -22,5 +23,9 @@ categoriesRoute.route('/edit/:id')
     param('id').trim().isInt({ gt: 0 }).withMessage('should be an integer greater than 0').toInt(),
     body('name').trim().notEmpty()
   ], putController.putEditedCategory)
+
+categoriesRoute.delete('/delete/:id', [
+  param('id').trim().isInt({ gt: 0 }).withMessage('should be an integer greater than 0').toInt()
+], deleteController.deleteCategory)
 
 export default categoriesRoute;
