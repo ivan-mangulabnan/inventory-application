@@ -9,15 +9,23 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 /* Root sensible variables (optional) */
 :root {
   --focus-ring: 3px;
   --focus-color: #2563eb; /* blue-600 */
-  --body-font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-  --body-color: #111;
-  --body-bg: #fff;
+
+  --primary-color: #007aff; /* A modern blue */
+  --bg-color: #f4f7fa;
+  --sidebar-bg: #ffffff;
+  --card-bg: #ffffff;
+  --text-color: #2c3e50;
+  --text-muted: #8a95a5;
+  --border-color: #e9eef2;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 /* Document defaults */
@@ -32,10 +40,10 @@ html {
 
 body {
   margin: 0;
-  font-family: var(--body-font);
-  color: var(--body-color);
-  background: var(--body-bg);
-  line-height: 1.5;
+  font-family: var(--font-family);
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  line-height: 1.6;
   min-height: 100vh;
 }
 

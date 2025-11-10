@@ -5,15 +5,7 @@ body {
   display: flex;
 }
 
-#root {
-  flex: 1;
-  max-width: 1600px;
-  margin: 0 auto;
-  
-  display: grid;
-  grid-template-columns: auto 1fr;
-}
-
-main {
+.app-container {
   display: flex;
+  min-height: 100vh;
 }

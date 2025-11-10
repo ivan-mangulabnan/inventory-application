@@ -14,10 +14,10 @@ const __filepath = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filepath);
 const assetsPath = path.join(__dirname, 'public');
 const navigations = [
-  { link: 'Dashboard', href: '' },
-  { link: 'Products', href: 'products' },
-  { link: 'Stocks', href: 'stocks' },
-  { link: 'Categories', href: 'categories' },
+  { link: 'Dashboard', href: '', svg: 'dashboard' },
+  { link: 'Products', href: 'products', svg: 'products' },
+  { link: 'Stocks', href: 'stocks', svg: 'stocks' },
+  { link: 'Categories', href: 'categories', svg: 'categories' },
 ];
 
 app.set('view engine', 'ejs');

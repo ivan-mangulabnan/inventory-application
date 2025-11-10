@@ -1,9 +1,10 @@
-<nav>
-  <ul>
-    <% navigations.forEach(nav => { %>
-      <li>
-        <a href="/<%= nav.href %>"><%= nav.link %></a>
-      </li>
-    <% }) %>
-  </ul>
-</nav>
+<ul class="nav-list">
+  <% navigations.forEach(nav => { %>
+    <li class="nav-item">
+      <a class="nav-link" href="/<%= nav.href %>">
+        <%- include('svg/' + nav.svg )%>
+        <span><%= nav.link %></span>
+      </a>
+    </li>
+  <% }) %>
+</ul>

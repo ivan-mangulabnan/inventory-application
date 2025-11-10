@@ -7,12 +7,12 @@
   <title>Inventory</title>
 </head>
 <body>
-  <div id="root">
-    <header>
-      <h1>Inventory</h1>
+  <div class="app-container">
+    <nav class="sidebar">
+      <h1 class="sidebar-header">Inventory</h1>
       <%- include('navbar', { navigations }) %>
-    </header>
-    <main>
+    </nav>
+    <main class="main-content">
       <%- include(link, { data }) %>
     </main>
   </div>
