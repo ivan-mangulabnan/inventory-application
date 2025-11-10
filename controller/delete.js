@@ -12,7 +12,6 @@ async function deleteProduct (req, res) {
   try {
     await dbDelete.deleteProduct(id);
   } catch (err) {
-    console.log(err.detail);
     res.send(err.detail);
     return;
   }
@@ -20,4 +19,22 @@ async function deleteProduct (req, res) {
   res.redirect('/products');
 }
 
-export default { deleteProduct };
+async function deleteStock (req, res) {
+  const error = validationResult(req);
+  if (!error.isEmpty()) {
+    throw new Error(error.array().join(','));
+  }
+
+  const { id } = matchedData(req, { locations: ['params'] });
+
+  try {
+    await dbDelete.deleteStock(id);
+  } catch (err) {
+    res.send(err.detail);
+    return;
+  }
+
+  res.redirect('/stocks');
+}
+
+export default { deleteProduct, deleteStock };

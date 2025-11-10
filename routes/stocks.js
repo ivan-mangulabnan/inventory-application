@@ -2,6 +2,7 @@ import { Router } from "express";
 import controller from '../controller/get.js';
 import patchController from '../controller/patch.js';
 import postController from '../controller/post.js';
+import deleteController from '../controller/delete.js';
 import { body, param, query } from "express-validator";
 
 const stocksRoute = Router();
@@ -22,5 +23,9 @@ stocksRoute.get('/add', [
 stocksRoute.post('/add/:id', [
   param('id').trim().isInt({ gt: 0 }).withMessage('id should be integer and is not less than 1').toInt()
 ], postController.postStock)
+
+stocksRoute.delete('/delete/:id',[
+    param('id').trim().isInt({ min: 1 }).withMessage('id should be integer and is not less than 1')
+  ], deleteController.deleteStock)
 
 export default stocksRoute;

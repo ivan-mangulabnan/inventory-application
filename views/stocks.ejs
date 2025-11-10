@@ -8,6 +8,9 @@
           <p><%= stock.name %></p>
           <p><%= stock.quantity %></p>
           <a href="/stocks/edit/<%= stock.product_id %>">EDIT</a>
+          <form action="/stocks/delete/<%=stock.product_id%>?_method=DELETE" method="post">
+            <button type="submit">DELETE</button>
+          </form>
         </li>
     <% }) %>
     </ul>
