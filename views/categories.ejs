@@ -1,20 +1,37 @@
-<div class="categories">
-  <% if (data.length <= 0) { %>
-      <h2>No Categories Yet</h2>
-  <% } else { %>
-      <ul>
-    <% data.forEach(category => { %>
-        <li>
-          <p><%= category.name %></p>
-          <a href="/categories/edit/<%=category.id%>">EDIT</a>
-          <form action="/categories/delete/<%=category.id%>?_method=DELETE" method="post">
-            <button type="submit">DELETE</button>
-          </form>
-        </li>
-    <% }) %>
-    </ul>
-  <% } %>
-  <div>
-    <a href="/categories/add">ADD CATEGORIES</a>
+<section id="categories" class="page">
+  <h2>Categories</h2>
+  <div class="toolbar">
+    <%- include('search-form', { link: '/categories', section: 'category' }) %>
+    <a class="btn btn-primary" href="/categories/add">ADD A CATEGORY</a>
   </div>
-</div>
+  <div class="table-container">
+    <% if (data.length <= 0) { %>
+      <h3 class="no-item">No Category Yet</h3>
+    <% } else { %>
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% data.forEach(category => { %>
+            <tr>
+              <td><%= category.name %></td>
+              <td>
+                <a class="btn btn-secondary" href="/categories/edit/<%=category.id%>">EDIT</a>
+              </td>
+              <td>
+                <form action="/categories/delete/<%=category.id%>?_method=DELETE" method="post">
+                  <button class="btn btn-secondary" type="submit">REMOVE</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </div>
+</section>

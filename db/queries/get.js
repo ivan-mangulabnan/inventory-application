@@ -30,7 +30,12 @@ async function getStocksWithProductName () {
   return rows;
 }
 
-async function getCategories () {
+async function getCategories (search) {
+  if (search) {
+    const { rows } = await pool.query('SELECT * FROM categories WHERE name ILIKE $1', [`%${search}%`]);
+    return rows;
+  }
+
   const { rows } = await pool.query('SELECT * FROM categories');
   return rows;
 }

@@ -28,7 +28,7 @@ const getProducts = async (req, res) => {
   }
 
   const { search } = matchedData(req, { locations: ['query'] });
-  
+
   let data;
   try {
     data = await dbGet.getProductsWithCategory(search);
@@ -54,10 +54,15 @@ const getStocks = async (req, res) => {
 
 const getCategories = async (req, res) => {
   const navigations = req.app.get('navigations');
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    throw new Error(errors.array().join(','));
+  }
+  const { search } = matchedData(req, { locations: ['query'] });
+  
   let data;
-
   try {
-    data = await dbGet.getCategories();
+    data = await dbGet.getCategories(search);
   } catch (err) {
     console.log(err);
   }
