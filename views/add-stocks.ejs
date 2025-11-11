@@ -1,18 +1,33 @@
-<div>
-  <form action="/stocks/add" method="get">
-    <input type="search" name="search">
-    <button type="submit">search</button>
-  </form>
-  <% if (data) { %>
-    <ul>
-      <% data.forEach(product => { %>
-        <li>
-          <%=product.name%>
-          <form action="/stocks/add/<%=product.id%>" method="post">
-            <button type="submit">INCLUDE</button>
-          </form>
-        </li>
-      <% }) %>
-    </ul>
-  <% } %>
-</div>
+<section class="page">
+  <a class="btn btn-back" href="/stocks">← Back to Stocks</a>
+  <h2>Add Stock</h2>
+  <div class="toolbar">
+    <%- include('search-form', { link: '/stocks/add', section: 'product' }) %>
+  </div>
+  <div class="table-container">
+    <% if (data.length <= 0) { %>
+      <h3 class="no-item">No Products Yet</h3>
+    <% } else { %>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Include</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% data.forEach(product => { %>
+            <tr>
+              <td><%= product.name %></td>
+              <td>
+                <form action="/stocks/add/<%=product.id%>" method="post">
+                  <button class="btn btn-secondary" type="submit">INCLUDE</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </div>
+</section>

@@ -1,19 +1,39 @@
-<div class="stocks">
-  <% if (data.length <= 0) { %>
-      <h2>No Stocks Yet</h2>
-  <% } else { %>
-      <ul>
-    <% data.forEach(stock => { %>
-        <li>
-          <p><%= stock.name %></p>
-          <p><%= stock.quantity %></p>
-          <a href="/stocks/edit/<%= stock.product_id %>">EDIT</a>
-          <form action="/stocks/delete/<%=stock.product_id%>?_method=DELETE" method="post">
-            <button type="submit">DELETE</button>
-          </form>
-        </li>
-    <% }) %>
-    </ul>
-  <% } %>
-  <a href="/stocks/add">INCLUDE PRODUCT</a>
-</div>
+<section id="stocks" class="page">
+  <h2>Stocks</h2>
+  <div class="toolbar">
+    <%- include('search-form', { link: '/stocks', section: 'stock' }) %>
+    <a class="btn btn-primary" href="/stocks/add">STOCK A PRODUCT</a>
+  </div>
+  <div class="table-container">
+    <% if (data.length <= 0) { %>
+      <h3 class="no-item">No Stocked Product Yet</h3>
+    <% } else { %>
+      <table>
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Edit</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% data.forEach(stock => { %>
+            <tr>
+              <td><%= stock.name %></td>
+              <td><%= stock.quantity %></td>
+              <td>
+                <a class="btn btn-secondary" href="/stocks/edit/<%= stock.product_id %>">EDIT</a>
+              </td>
+              <td>
+                <form action="/stocks/delete/<%=stock.product_id%>?_method=DELETE" method="post">
+                  <button class="btn btn-secondary" type="submit">REMOVE</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </div>
+</section>

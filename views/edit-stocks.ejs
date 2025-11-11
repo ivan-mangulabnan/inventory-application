@@ -1,8 +1,25 @@
-<form action="/stocks/edit/<%=data.product_id%>?_method=PATCH" method="post">
+<!-- <form action="/stocks/edit/<%=data.product_id%>?_method=PATCH" method="post">
   <h2><%= data.name %></h2>
   <label for="quantity">
     Quantity:
     <input type="number" name="quantity" id="quantity" value="<%= data.quantity %>" min="0" required>
   </label>
   <button type="submit">SUBMIT</button>
-</form>
+</form> -->
+
+<section class="page">
+  <a class="btn btn-back" href="/stocks">← Back to Stocks</a>
+  <h2 id="product-form-title">Edit Quantity</h2>
+  <div class="form-layout">
+    <div class="card">
+      <h3 class="item-name"><%= data.name %></h3>
+      <form action="/stocks/edit/<%=data.product_id%>?_method=PATCH" method="post">
+        <div class="form-group">
+          <label for="quantity">Quantity</label>
+          <input type="number" id="quantity" name="quantity" class="form-control" value="<%= data.quantity %>" min="0" placeholder="e.g., 1499.00" required>
+        </div>
+        <button type="submit" class="btn btn-primary" data-route-to="products">UPDATE</button>
+      </form>
+    </div>
+  </div>
+</section>
