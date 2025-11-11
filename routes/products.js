@@ -3,11 +3,13 @@ import controller from '../controller/get.js';
 import postController from '../controller/post.js';
 import putController from '../controller/put.js';
 import deleteController from '../controller/delete.js';
-import { body, param } from 'express-validator';
+import { body, param, query } from 'express-validator';
 
 const productsRoute = Router();
 
-productsRoute.get('/', controller.getProducts);
+productsRoute.get('/', [
+  query('search').trim()
+], controller.getProducts);
 
 productsRoute.route('/add')
   .get(controller.getProductsForm)

@@ -15,7 +15,12 @@ async function getTotalCategories () {
   return rowCount;
 }
 
-async function getProductsWithCategory () {
+async function getProductsWithCategory (search) {
+  if (search) {
+    const { rows } = await pool.query('SELECT p.*, c.name AS category FROM products AS p INNER JOIN categories AS c ON p.category_id = c.id WHERE p.name ILIKE $1', [`%${search}%`]);
+    return rows;
+  }
+
   const { rows } = await pool.query('SELECT p.*, c.name AS category FROM products AS p INNER JOIN categories AS c ON p.category_id = c.id');
   return rows;
 }
