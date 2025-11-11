@@ -34,4 +34,12 @@ productsRoute.delete('/delete/:id', [
   param('id').trim().isInt({ gt: 0 }).withMessage('should be an integer more than one').toInt(),
 ], deleteController.deleteProduct);
 
+productsRoute.use((err, req, res, next) => {
+  const navigations = req.app.get('navigations');
+  res.locals.home = '/products';
+  res.locals.route = 'Products';
+  res.locals.err = err;
+  res.render('index', { link: 'error', navigations, data: null });
+});
+
 export default productsRoute;

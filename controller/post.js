@@ -1,28 +1,28 @@
 import dbPost from '../db/queries/post.js';
 import { validationResult, matchedData } from 'express-validator';
 
-async function postProduct (req, res) {
+async function postProduct (req, res, next) {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    return next(errors.array().join(','));
   }
 
   const data = matchedData(req);
   try {
     await dbPost.postProduct(data.name, data.price, data.category);
   } catch (err) {
-    return res.status(500).send('Database Error');
+    return next(err);
   }
 
   res.redirect('/products');
 }
 
-async function postCategories (req, res) {
+async function postCategories (req, res, next) {
   const error = validationResult(req);
 
   if (!error.isEmpty()) {
-    return res.status(400).send('invalid category value');
+    return next(error.array().join(','));
   }
 
   const { category } = matchedData(req);
@@ -30,7 +30,7 @@ async function postCategories (req, res) {
   try {
     await dbPost.postCategory(category);
   } catch (err) {
-    throw new Error (err);
+    return next(err);
   }
 
   res.redirect('/categories');
@@ -40,7 +40,7 @@ async function postStock (req, res) {
   const error = validationResult(req);
 
   if (!error.isEmpty()) {
-    return res.status(400).send('invalid category value');
+    return next(error.array().join(','));
   }
 
   const { id } = matchedData(req, { locations: ['params'] });
@@ -48,7 +48,7 @@ async function postStock (req, res) {
   try {
     await dbPost.postStock(id);
   } catch (err) {
-    throw new Error (err);
+    return next(err);
   }
 
   res.redirect('/stocks');

@@ -1,11 +1,11 @@
 import dbPatch from '../db/queries/patch.js';
 import { validationResult, matchedData } from 'express-validator';
 
-const updateStockQuantity = async (req, res) => {
+const updateStockQuantity = async (req, res, next) => {
   const error = validationResult(req);
 
   if (!error.isEmpty()) {
-    return res.status(400).send('Validation Error');
+    return next(error.array().join(','));
   }
 
   const { id, quantity } = matchedData(req, { locations: ['body', 'params'] });
@@ -13,7 +13,7 @@ const updateStockQuantity = async (req, res) => {
   try {
     await dbPatch.patchStockQuantity(id, quantity);
   } catch (err) {
-    throw new Error(err);
+    return next(err);
   }
 
   res.redirect('/stocks');

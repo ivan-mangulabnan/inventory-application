@@ -35,6 +35,10 @@ app.use('/products', productsRoute);
 app.use('/stocks', stocksRoute);
 app.use('/categories', categoriesRoute);
 
+app.use((req, res) => {
+  res.status(404).send('Page Not Found');
+})
+
 app.listen(process.env.LOCAL_PORT, (err) => {
   if (err) {
     console.log('Server error');

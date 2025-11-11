@@ -28,4 +28,11 @@ stocksRoute.delete('/delete/:id',[
     param('id').trim().isInt({ min: 1 }).withMessage('id should be integer and is not less than 1')
   ], deleteController.deleteStock)
 
+stocksRoute.use((err, req, res, next) => {
+  const navigations = req.app.get('navigations');
+  res.locals.home = '/stocks';
+  res.locals.route = 'Stocks';
+  res.locals.err = err;
+  res.render('index', { link: 'error', navigations, data: null });
+});
 export default stocksRoute;

@@ -18,7 +18,8 @@
   --focus-ring: 3px;
   --focus-color: #2563eb; /* blue-600 */
 
-  --primary-color: #007aff; /* A modern blue */
+  /* --primary-color: #007aff; A modern blue */
+  --primary-color: #ff3b30; /* Vibrant modern red */
   --bg-color: #f4f7fa;
   --sidebar-bg: #ffffff;
   --card-bg: #ffffff;

@@ -1,10 +1,10 @@
 import { matchedData, validationResult } from "express-validator";
 import dbDelete from '../db/queries/delete.js';
 
-async function deleteProduct (req, res) {
+async function deleteProduct (req, res, next) {
   const error = validationResult(req);
   if (!error.isEmpty()) {
-    throw new Error(error.array().join(','));
+    return next(error.array().join(','));
   }
 
   const { id } = matchedData(req, { locations: ['params'] });
@@ -12,17 +12,16 @@ async function deleteProduct (req, res) {
   try {
     await dbDelete.deleteProduct(id);
   } catch (err) {
-    res.send(err.detail);
-    return;
+    return next(err);
   }
 
   res.redirect('/products');
 }
 
-async function deleteStock (req, res) {
+async function deleteStock (req, res, next) {
   const error = validationResult(req);
   if (!error.isEmpty()) {
-    throw new Error(error.array().join(','));
+    return next(error.array().join(','));
   }
 
   const { id } = matchedData(req, { locations: ['params'] });
@@ -30,17 +29,16 @@ async function deleteStock (req, res) {
   try {
     await dbDelete.deleteStock(id);
   } catch (err) {
-    res.send(err.detail);
-    return;
+    return next(err);
   }
 
   res.redirect('/stocks');
 }
 
-async function deleteCategory (req, res) {
+async function deleteCategory (req, res, next) {
   const error = validationResult(req);
   if (!error.isEmpty()) {
-    throw new Error(error.array().join(','));
+    return next(error.array().join(','));
   }
 
   const { id } = matchedData(req, { locations: ['params'] });
@@ -48,8 +46,7 @@ async function deleteCategory (req, res) {
   try {
     await dbDelete.deleteCategory(id);
   } catch (err) {
-    res.send(err.detail);
-    return;
+    return next(err);
   }
 
   res.redirect('/categories');

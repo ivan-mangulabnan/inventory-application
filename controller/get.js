@@ -1,7 +1,7 @@
 import { matchedData, validationResult } from 'express-validator';
 import dbGet from '../db/queries/get.js';
 
-const getIndex = async (req, res) => {
+const getIndex = async (req, res, next) => {
   const navigations = req.app.get('navigations');
   let data;
 
@@ -14,17 +14,17 @@ const getIndex = async (req, res) => {
 
     data = { totalProducts, totalStocks, totalCategories };
   } catch (err) {
-    console.log(err);
+    return next(err);
   }
   
   res.render('index', { link: 'dashboard', navigations, data });
 }
 
-const getProducts = async (req, res) => {
+const getProducts = async (req, res, next) => {
   const navigations = req.app.get('navigations');
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    throw new Error(errors.array().join(','))
+    return next(errors.array().join(','));
   }
 
   const { search } = matchedData(req, { locations: ['query'] });
@@ -33,57 +33,57 @@ const getProducts = async (req, res) => {
   try {
     data = await dbGet.getProductsWithCategory(search);
   } catch (err) {
-    console.log(err);
+    return next(err);
   }
 
   res.render('index', { link: 'products', navigations, data });
 }
 
-const getStocks = async (req, res) => {
+const getStocks = async (req, res, next) => {
   const navigations = req.app.get('navigations');
   let data;
 
   try {
     data = await dbGet.getStocksWithProductName();
   } catch (err) {
-    console.log(err);
+    return next(err);
   }
 
   res.render('index', { link: 'stocks', navigations, data });
 }
 
-const getCategories = async (req, res) => {
+const getCategories = async (req, res, next) => {
   const navigations = req.app.get('navigations');
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    throw new Error(errors.array().join(','));
+    return next(errors);
   }
   const { search } = matchedData(req, { locations: ['query'] });
-  
+
   let data;
   try {
     data = await dbGet.getCategories(search);
   } catch (err) {
-    console.log(err);
+    return next(err);
   }
 
   res.render('index', { link: 'categories', navigations, data });
 }
 
-const getProductsForm = async (req, res) => {
+const getProductsForm = async (req, res, next) => {
   const navigations = req.app.get('navigations');
   let data;
 
   try {
     data = await dbGet.getCategories();
   } catch (err) {
-    console.log(err);
+    return next(err);
   }
   
   res.render('index', { link: 'add-product', navigations, data });
 }
 
-const getStockForm = async (req, res) => {
+const getStockForm = async (req, res, next) => {
   const id = Number(req.params.id);
   const navigations = req.app.get('navigations');
   let data;
@@ -91,7 +91,7 @@ const getStockForm = async (req, res) => {
   try {
     data = await dbGet.getSpecificStock(id);
   } catch (err) {
-    console.log(err);
+    return next(err);
   }
   
   res.render('index', { link: 'edit-stocks', navigations, data });
@@ -102,11 +102,11 @@ const getCategoriesForm = async (req, res) => {
   res.render('index', { link: 'add-categories', navigations, data: null });
 }
 
-const getEditProducts = async (req, res) => {
+const getEditProducts = async (req, res, next) => {
   const navigations = req.app.get('navigations');
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).send('Validation Error');
+    return next(errors.array().join(','));
   }
 
   const { id } = matchedData(req, { locations: ['params'] });
@@ -115,17 +115,17 @@ const getEditProducts = async (req, res) => {
   try {
     data = await dbGet.getSpecificProductWithCategory(id);
   } catch (err) {
-    throw new Error(err);
+    return next(err);
   }
   
   res.render('index', { link: 'edit-products', navigations, data });
 }
 
-const getEditCategory = async (req, res) => {
+const getEditCategory = async (req, res, next) => {
   const navigations = req.app.get('navigations');
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).send('Validation Error');
+    return next(errors.array().join(','));
   }
 
   const { id } = matchedData(req, { locations: ['params'] });
@@ -134,7 +134,7 @@ const getEditCategory = async (req, res) => {
   try {
     data = await dbGet.getSpecificCategory(id);
   } catch (err) {
-    throw new Error(err);
+    return next(err);
   }
   
   res.render('index', { link: 'edit-categories', navigations, data });
@@ -144,7 +144,7 @@ const getIncludeProductInStock = async (req, res) => {
   const navigations = req.app.get('navigations');
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).send('Validation Error');
+    return next(errors.array().join(','));
   }
 
   const { search } = matchedData(req, { locations: ['query'] });
@@ -153,7 +153,7 @@ const getIncludeProductInStock = async (req, res) => {
   try {
     data = await dbGet.getProductsNotInStock(search);
   } catch (err) {
-    return res.status(500).send('DB Problem');
+    return next(err);
   }
   
   res.render('index', { link: 'add-stocks', navigations, data });

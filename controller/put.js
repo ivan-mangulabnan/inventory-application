@@ -4,7 +4,7 @@ import { validationResult, matchedData } from 'express-validator';
 async function putEditedProduct (req, res) {
   const error = validationResult(req);
   if (!error.isEmpty()) {
-    throw new Error(error.array().join(','));
+    return next(error.array().join(','));
   }
 
   const { id, name, category, price } = matchedData(req, { locations: ['body', 'params'] });
@@ -12,7 +12,7 @@ async function putEditedProduct (req, res) {
   try {
     await dbPut.putEditedProduct(id, name, price, category);
   } catch (err) {
-    throw new Error(err);
+    return next(err);
   }
 
   res.redirect('/products');
@@ -21,7 +21,7 @@ async function putEditedProduct (req, res) {
 async function putEditedCategory (req, res) {
   const error = validationResult(req);
   if (!error.isEmpty()) {
-    throw new Error(error.array().join(','));
+    return next(error.array().join(','));
   }
 
   const { id, name } = matchedData(req, { locations: ['body', 'params'] });
@@ -29,7 +29,7 @@ async function putEditedCategory (req, res) {
   try {
     await dbPut.putEditedCategory(id, name);
   } catch (err) {
-    throw new Error(err);
+    return next(err);
   }
 
   res.redirect('/categories');
