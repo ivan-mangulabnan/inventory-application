@@ -1,7 +1,15 @@
 <ul class="nav-list">
   <% navigations.forEach(nav => { %>
     <li class="nav-item">
-      <a class="nav-link" href="/<%= nav.href %>">
+      <% 
+        let isActive = false;
+        if(nav.href === '') {
+          isActive = currentPath === '/';
+        } else {
+          isActive = currentPath.startsWith('/' + nav.href);
+        }
+      %>
+      <a class="nav-link <%= isActive ? 'active' : '' %>" href="/<%= nav.href %>">
         <%- include('svg/' + nav.svg )%>
         <span><%= nav.link %></span>
       </a>

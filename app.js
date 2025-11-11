@@ -26,6 +26,10 @@ app.set('navigations', navigations);
 app.use(express.static(assetsPath));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+app.use((req, res, next) => {
+  res.locals.currentPath = req.path;
+  next();
+})
 app.use('/', indexRoute);
 app.use('/products', productsRoute);
 app.use('/stocks', stocksRoute);
