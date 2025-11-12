@@ -6,13 +6,30 @@ const getIndex = async (req, res, next) => {
   let data;
 
   try {
-    const [totalProducts, totalStocks, totalCategories] = await Promise.all([
+    const [
+      totalProducts, 
+      totalStocks, 
+      totalCategories,
+      totalProductsWithoutStock,
+      totalProductsInStock,
+      totalUnusedCategories
+    ] = await Promise.all([
       dbGet.getTotalProducts(),
       dbGet.getTotalStocks(),
-      dbGet.getTotalCategories()
+      dbGet.getTotalCategories(),
+      dbGet.getTotalProductsWithoutStock(),
+      dbGet.getTotalProductsInStock(),
+      dbGet.getTotalUnusedCategories()
     ]);
 
-    data = { totalProducts, totalStocks, totalCategories };
+    data = { 
+      totalProducts, 
+      totalStocks, 
+      totalCategories, 
+      totalProductsWithoutStock,
+      totalProductsInStock,
+      totalUnusedCategories
+    };
   } catch (err) {
     return next(err);
   }

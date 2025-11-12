@@ -6,13 +6,23 @@ async function getTotalProducts () {
 }
 
 async function getTotalStocks () {
-  const { rowCount } = await pool.query('SELECT * FROM stocks');
-  return rowCount;
+  const { rows } = await pool.query('SELECT SUM(quantity) AS total_stocks FROM stocks');
+  return rows[0]['total_stocks'];
+}
+
+async function getTotalProductsWithoutStock () {
+  const { rows } = await pool.query('SELECT COUNT(product_id) AS count FROM stocks WHERE quantity = 0');
+  return rows[0].count;
 }
 
 async function getTotalCategories () {
   const { rowCount } = await pool.query('SELECT * FROM categories');
   return rowCount;
+}
+
+async function getTotalProductsInStock () {
+  const { rows } = await pool.query('SELECT COUNT(p.id) AS count FROM products AS p JOIN stocks AS s ON p.id = s.product_id');
+  return rows[0].count;
 }
 
 async function getProductsWithCategory (search) {
@@ -38,6 +48,11 @@ async function getCategories (search) {
 
   const { rows } = await pool.query('SELECT * FROM categories');
   return rows;
+}
+
+async function getTotalUnusedCategories () {
+  const { rows } = await pool.query('SELECT COUNT(c.id) AS count FROM categories AS c LEFT JOIN products AS p ON p.category_id = c.id WHERE p.category_id IS NULL');
+  return rows[0].count;
 }
 
 async function getSpecificStock (id) {
@@ -71,7 +86,8 @@ async function getProductsNotInStock (search) {
 
 export default { 
   getTotalProducts, 
-  getTotalStocks, 
+  getTotalStocks,
+  getTotalProductsWithoutStock,
   getTotalCategories, 
   getProductsWithCategory,
   getStocksWithProductName,
@@ -79,5 +95,7 @@ export default {
   getSpecificStock,
   getSpecificProductWithCategory,
   getSpecificCategory,
-  getProductsNotInStock
+  getProductsNotInStock,
+  getTotalProductsInStock,
+  getTotalUnusedCategories
 };
