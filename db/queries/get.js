@@ -7,7 +7,7 @@ async function getTotalProducts () {
 
 async function getTotalStocks () {
   const { rows } = await pool.query('SELECT SUM(quantity) AS total_stocks FROM stocks');
-  return rows[0]['total_stocks'];
+  return rows[0]['total_stocks'] || 0;
 }
 
 async function getTotalProductsWithoutStock () {
